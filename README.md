@@ -1,7 +1,7 @@
 # ece4400-final-project
 
-here are some great words for a change
+this is my own branch! i can make whatever changes i want here and it won't affect anything in [master]
 
-i've added some stuff that's not local!
+when it's time, i can take these changes and merge them back into master. this is called a "pull request"
 
-i added stuff again!
+if any changes are made in master, git will sort them out and ask us what parts we want changed
