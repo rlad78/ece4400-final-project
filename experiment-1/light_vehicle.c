@@ -22,7 +22,7 @@
 
 #define PORT "3444"
 // Packet size
-#define MAXDATASIZE 7
+//define MAXDATASIZE 7
 
 struct DataPacket
 {
@@ -46,34 +46,32 @@ void *get_in_addr(struct sockaddr *sa)
 
 int main(int argc, char *argv[])
 {
+    struct DataPacket our_packet;
+    struct DataPacket server_packet;
+	int maxdatasize = sizeof(our_packet);
+
+
+
+
 	int sockfd, numbytes;
-	char buf[MAXDATASIZE];
+	char buf[maxdatasize];
 	struct addrinfo hints, *servinfo, *p;
 	int rv;
 	char s[INET6_ADDRSTRLEN];
 	int i;
-
-	struct DataPacket packet;
 
 	// Current hostname
 	char currenthost[256];
 	currenthost[255] = '\0';
 	gethostname(currenthost, 255);
 
-	if (argc != 3) {
-	    fprintf(stderr,"usage: client hostname idnumber\n");
+	strcpy(our_packet.source, currenthost);
+
+	if (argc != 2) {
+	    fprintf(stderr,"usage: client hostname\n");
 	    exit(1);
 	}
 
-	// Verify that input string is valid
-    for (i = 0; i < 6; i++)
-    {
-        if (!isdigit(argv[2][i]))
-        {
-            fprintf(stderr, "idnumber is not valid\n");
-            exit(1);
-        }
-    }
     printf("We are: %s\n", currenthost);
 
 	memset(&hints, 0, sizeof hints);
@@ -116,17 +114,15 @@ int main(int argc, char *argv[])
 	freeaddrinfo(servinfo); // all done with this structure
 
 	// Transmit request and wait for reply
-    if (send(sockfd, "123456", 7, 0) == -1)
+    if (send(sockfd, &our_packet, maxdatasize, 0) == -1)
     perror("send");
 
-	if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+	if ((numbytes = recv(sockfd, &server_packet, maxdatasize, 0)) == -1) {
 	    perror("recv");
 	    exit(1);
 	}
 
-	buf[numbytes] = '\0';
-
-	printf("client: string is '%s'\n",buf);
+	printf("The server's hostname is: '%s'\n",server_packet.source);
 
 	close(sockfd);
 

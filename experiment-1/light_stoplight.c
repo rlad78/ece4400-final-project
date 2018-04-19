@@ -26,11 +26,8 @@
 // Allowed queued connections
 #define BACKLOG 10
 // Packet size
-#define MAXDATASIZE 512
+//#define MAXDATASIZE 512
 
-
-const char *id_array[5] = {"130523", "123456", "163863", "832334", "382551"};
-const char *string_array[5] = {"athing", "bthing", "cthing", "dthing", "ething"};
 
 struct DataPacket
 {
@@ -40,6 +37,7 @@ struct DataPacket
     int distance;
     int time;
     int status;
+    int padding[16];
 };
 
 void sigchld_handler(int s)
@@ -79,8 +77,20 @@ int main(void)
     int isvalid;
 
 	// Added
-    char buf[MAXDATASIZE];
+    struct DataPacket go_packet;
+    struct DataPacket rec_packet;
+    int maxdatasize = sizeof(go_packet);
+
+    char buf[maxdatasize];
     int numbytes;
+
+    // Current hostname
+	char currenthost[256];
+	currenthost[255] = '\0';
+	gethostname(currenthost, 255);
+
+    strcpy(go_packet.source, currenthost);
+
 
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_UNSPEC;
@@ -151,57 +161,21 @@ int main(void)
 		printf("server: got connection from %s\n", s);
 
 
-
-		if (!fork()) { // this is the child process
-			close(sockfd); // child doesn't need the listener
+        // Child process handling socket
+		if (!fork()) {
+			close(sockfd);
 
             // Receive data
-            if ((numbytes = recv(new_fd, buf, MAXDATASIZE-1, 0)) == -1) {
+            // Note: you probably should never do this in the real world
+            // This is why serialization libraries exist
+            if ((numbytes = recv(new_fd, &rec_packet, maxdatasize, 0)) == -1) {
                 perror("recv");
                 exit(1);
             }
-            buf[numbytes] = '\0';
-            printf("server: received ID number '%s'\n",buf);
+            printf("source: '%s'\n",rec_packet.source);
 
-            // Check if string is valid
-            for (i = 0; i < 6; i++)
-            {
-                if (!isdigit(buf[i]))
-                {
-                    isvalid = 0;
-                    break;
-                }
-            }
-
-            // If not 6 char number string, send "notnum"
-            if (!isvalid)
-            {
-                if (send(new_fd, "notnum", 7, 0) == -1)
+            if (send(new_fd, &go_packet, maxdatasize, 0) == -1)
                 perror("send");
-            }
-            // Look up ID number if valid
-            else
-            {
-
-                for (i = 0; i < 5; i++)
-                {
-                    // Send back corresponding string if ID matched
-                    if (strcmp(buf, id_array[i]) == 0)
-                    {
-                        strcpy(buf, string_array[i]);
-                        if (send(new_fd, buf, 7, 0) == -1)
-                        perror("send");
-                        break;
-                    }
-
-                    // Send "wrong" if not found
-                    if (i == 4)
-                    {
-                        if (send(new_fd, "wrong", 7, 0) == -1)
-                        perror("send");
-                    }
-                }
-            }
 
 			close(new_fd);
 			exit(0);
