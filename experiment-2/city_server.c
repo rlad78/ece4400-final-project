@@ -21,6 +21,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <ctype.h>
+#include <time.h>
 
 #define PORT "3444"
 // Allowed queued connections
@@ -73,15 +74,16 @@ int main(void)
 	int yes=1;
 	char s[INET6_ADDRSTRLEN];
 	int rv;
-	int i;
-    int isvalid;
+	time_t oldtime;
+	time_t newtime;
+    //int isvalid;
 
 	// Added
     struct DataPacket go_packet;
     struct DataPacket rec_packet;
     int maxdatasize = sizeof(go_packet);
 
-    char buf[maxdatasize];
+    //char buf[maxdatasize];
     int numbytes;
 
     // Current hostname
@@ -166,14 +168,15 @@ int main(void)
 			close(sockfd);
 
 			char fname[256];
-			char host[256];
 
             //receive first packet from each vehicle to get source name and create a file for each one
 			recv(new_fd, &rec_packet, maxdatasize, 0);
 			strcpy(fname,rec_packet.source);
 
 			FILE *fptr;
-			fptr = fopen(fname, "w");
+			fptr = fopen(fname, "wb");
+
+            oldtime = time(NULL);
 
             while(1)
             {
@@ -184,16 +187,21 @@ int main(void)
                     perror("recv");
                     exit(1);
                 }
-                printf("source: '%s' Distance: '%d'\n",rec_packet.source, rec_packet.distance);
+
+                //set time that packet was received
+                newtime = time(NULL);
+
+                rec_packet.time = (newtime - oldtime);
+
+                printf("source: '%s' Distance: '%d' Time: '%d'\n",rec_packet.source, rec_packet.distance, rec_packet.time);
 
                 //condition if the vehicle is finished sending data
                 if (rec_packet.type == 1)
                 {
                     break;
                 }
-
+                //write data to file
                 fwrite(&rec_packet, 1, sizeof(rec_packet), fptr);
-
             }
 
             fclose(fptr);

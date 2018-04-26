@@ -19,6 +19,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <ctype.h>
+#include <time.h>
 
 #define PORT "3444"
 // Packet size
@@ -55,11 +56,11 @@ int main(int argc, char *argv[])
 
 
 	int sockfd, numbytes;
-	char buf[maxdatasize];
+	//char buf[maxdatasize];
 	struct addrinfo hints, *servinfo, *p;
 	int rv;
 	char s[INET6_ADDRSTRLEN];
-	int i;
+	//int i;
 
 	// Current hostname
 	char currenthost[256];
@@ -80,7 +81,7 @@ int main(int argc, char *argv[])
 	hints.ai_socktype = SOCK_STREAM;
 
 	// Resolve address for hostname "light"
-	// ** change argv[1] to "Light"
+	// ** change argv[1] to "city-server"
 	if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0) {
 		fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
 		return 1;
@@ -167,6 +168,7 @@ int main(int argc, char *argv[])
         printf("Current Distance: %d\n", our_packet.distance);
 
         our_packet.distance += 5;
+        sleep(1);
     }
 
     our_packet.type = 1;
