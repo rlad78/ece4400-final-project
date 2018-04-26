@@ -24,10 +24,10 @@ int main()
 
     FILE* vehicles[4];
 
-    FILE* vehicles[0] = fopen("car1", "rb");
-    FILE* vehicles[1] = fopen("car2", "rb");
-    FILE* vehicles[2] = fopen("car3", "rb");
-    FILE* vehicles[3] = fopen("car4", "rb");
+    FILE* vehicles[0] = fopen("car1.v2v-exp1.ch-geni-net.instageni.rnoc.gatech.edu", "rb");
+    FILE* vehicles[1] = fopen("car2.v2v-exp1.ch-geni-net.instageni.rnoc.gatech.edu", "rb");
+    FILE* vehicles[2] = fopen("car3.v2v-exp1.ch-geni-net.instageni.rnoc.gatech.edu", "rb");
+    FILE* vehicles[3] = fopen("car4.v2v-exp1.ch-geni-net.instageni.rnoc.gatech.edu", "rb");
 
     int vehicle_position[4][100];
 
