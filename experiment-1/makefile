@@ -1,4 +1,4 @@
-exp1: light_vehicle light_stoplight
+exp1: light_vehicle light_stoplight light_parser
 
 light_vehicle: light_vehicle.c
 	gcc -g -Wall -o light_vehicle light_vehicle.c
