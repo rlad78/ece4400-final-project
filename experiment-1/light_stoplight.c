@@ -1,7 +1,7 @@
 /*
- * city_server.c
+ * light_stoplight.c
  * ECE 4400 Final Project
- * Experiment 2:
+ * Experiment 1:
  * Program for 'server'(stoplight)
  * Based on source code and concepts from
  * "Beej's Guide to Network Programming Using Internet Sockets"
