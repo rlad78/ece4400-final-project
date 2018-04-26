@@ -4,7 +4,8 @@
  * Experiment 1: Fleet Control Stoplight
  * Parser for recorded packets
  */
-
+#include <stdio.h>
+#include <stdlib.h>
 
 struct DataPacket
 {
