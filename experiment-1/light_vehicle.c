@@ -1,7 +1,7 @@
 /*
- * light_vehicle.c
+ * city_vehicle.c
  * ECE 4400 Final Project
- * Experiment 1: Fleet Control Stoplight
+ * Experiment 2:
  * Client program for vehicle
  * Based on source code and concepts from
  * "Beej's Guide to Network Programming Using Internet Sockets"
@@ -29,9 +29,10 @@ struct DataPacket
     int type;
     char source[256];
     char dest[256];
-    int distance;
+    int distance;       //cars will be three units long
     int time;
     int status;
+    int padding[16];
 };
 
 // get sockaddr, IPv4 or IPv6:
@@ -54,11 +55,11 @@ int main(int argc, char *argv[])
 
 
 	int sockfd, numbytes;
-	char buf[maxdatasize];
+	//char buf[maxdatasize];
 	struct addrinfo hints, *servinfo, *p;
 	int rv;
 	char s[INET6_ADDRSTRLEN];
-	int i;
+	//int i;
 
 	// Current hostname
 	char currenthost[256];
@@ -113,9 +114,31 @@ int main(int argc, char *argv[])
 
 	freeaddrinfo(servinfo); // all done with this structure
 
+	//set up initial position data
+    our_packet.type = 0;
+    our_packet.distance = 0;
+
 	// Transmit request and wait for reply
     if (send(sockfd, &our_packet, maxdatasize, 0) == -1)
     perror("send");
+
+    while(our_packet.distance < 50)
+    {
+        //continue to send update packets for position
+        strcpy(our_packet.source, currenthost);
+
+        if (send(sockfd, &our_packet, maxdatasize, 0) == -1)
+        perror("send");
+
+        printf("Current Distance: %d\n", our_packet.distance);
+
+        our_packet.distance += 5;
+    }
+
+    our_packet.type = 1;
+
+    if (send(sockfd, &our_packet, maxdatasize, 0) == -1)
+        perror("send");
 
 	if ((numbytes = recv(sockfd, &server_packet, maxdatasize, 0)) == -1) {
 	    perror("recv");
@@ -123,6 +146,7 @@ int main(int argc, char *argv[])
 	}
 
 	printf("The server's hostname is: '%s'\n",server_packet.source);
+	printf("Complete\n");
 
 	close(sockfd);
 

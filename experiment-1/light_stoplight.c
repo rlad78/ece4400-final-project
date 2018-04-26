@@ -1,8 +1,8 @@
 /*
- * light_stoplight.c
+ * city_server.c
  * ECE 4400 Final Project
- * Experiment 1: Fleet Control Stoplight
- * Server program for 'stoplight'
+ * Experiment 2:
+ * Program for 'server'(stoplight)
  * Based on source code and concepts from
  * "Beej's Guide to Network Programming Using Internet Sockets"
  * by Brian Hall
@@ -21,6 +21,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <ctype.h>
+#include <time.h>
 
 #define PORT "3444"
 // Allowed queued connections
@@ -34,7 +35,7 @@ struct DataPacket
     int type;
     char source[256];
     char dest[256];
-    int distance;
+    int distance;       //cars will be three units long
     int time;
     int status;
     int padding[16];
@@ -74,15 +75,20 @@ int main(void)
 	char s[INET6_ADDRSTRLEN];
 	int rv;
 	int i;
-    int isvalid;
+	int number_of_packets = 0;
+    //int isvalid;
 
 	// Added
     struct DataPacket go_packet;
     struct DataPacket rec_packet;
     int maxdatasize = sizeof(go_packet);
 
-    char buf[maxdatasize];
+    //char buf[maxdatasize];
     int numbytes;
+    int time_to_go = 0;
+    int currenttime;
+    int oldtime;
+    int newtime;
 
     // Current hostname
 	char currenthost[256];
@@ -160,28 +166,66 @@ int main(void)
 			s, sizeof s);
 		printf("server: got connection from %s\n", s);
 
+		time_to_go += 1;
+		currenttime = time_to_go;
 
         // Child process handling socket
 		if (!fork()) {
 			close(sockfd);
 
-            // Receive data
-            // Note: you probably should never do this in the real world
-            // This is why serialization libraries exist
-            if ((numbytes = recv(new_fd, &rec_packet, maxdatasize, 0)) == -1) {
-                perror("recv");
-                exit(1);
+			char fname[256];
+			char host[256];
+
+            //receive first packet from each vehicle to get source name and create a file for each one
+			recv(new_fd, &rec_packet, maxdatasize, 0);
+			strcpy(fname,rec_packet.source);
+
+			FILE *fptr;
+			fptr = fopen(fname, "wb");
+
+            while(1)
+            {
+                oldtime = time(NULL);
+                // Receive data
+                // Note: you probably should never do this in the real world
+                // This is why serialization libraries exist
+                if ((numbytes = recv(new_fd, &rec_packet, maxdatasize, 0)) == -1) {
+                    perror("recv");
+                    exit(1);
+                }
+
+                rec_packet.time = currenttime;
+                printf("source: '%s' Distance: '%i' Time: '%i'\n",rec_packet.source, rec_packet.distance, rec_packet.time);
+
+                //condition if the vehicle is finished sending data
+                if (rec_packet.type == 1)
+                {
+                    break;
+                }
+
+                sleep(1);
+                newtime = time(NULL);
+                currenttime = currenttime + (newtime - oldtime);
+
+                fwrite(&rec_packet, 1, sizeof(rec_packet), fptr);
+                number_of_packets++;
             }
-            printf("source: '%s'\n",rec_packet.source);
 
+            printf("%i data packets recorded\n", number_of_packets);
+            fclose(fptr);
+
+            //send packet for server hostname
             if (send(new_fd, &go_packet, maxdatasize, 0) == -1)
-                perror("send");
+            perror("send");
 
-			close(new_fd);
-			exit(0);
+            close(new_fd);
+            printf("connection to %s closed\n", fname);
+            exit(0);
 		}
 		close(new_fd);  // parent doesn't need this
 	}
+
+	//parse through data to determine if collision happened
 
 	return 0;
 }
