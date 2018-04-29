@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
     int init_pos4 = 15;
     int init_lane4 = 2;
 
-    if (strcmp(currenthost,"apollo07") == 0) //vehicle 1
+    if (strcmp(currenthost,"vehicle-1") == 0) //vehicle 1
     {
         our_packet.type = 0;
         our_packet.distance = init_pos1;
@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
         our_packet.distance = init_pos3;
         our_packet.lane = init_lane3;
     }
-    if (strcmp(currenthost, "apollo08") == 0) //vehicle 4
+    if (strcmp(currenthost, "vehicle-4") == 0) //vehicle 4
     {
         our_packet.type = 0;
         our_packet.distance = init_pos4;
@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
     if (send(sockfd, &our_packet, maxdatasize, 0) == -1)
     perror("send");
 
-    while(our_packet.distance < 50)
+    while(our_packet.distance < 100)
     {
         //continue to send update packets for position
         strcpy(our_packet.source, currenthost);
@@ -167,6 +167,10 @@ int main(int argc, char *argv[])
 
         printf("Current Distance: %d\n", our_packet.distance);
 
+        if (our_packet.distance == 50 && strcmp(currenthost, "vehicle4") == 0)
+        {
+            our_packet.lane = 1;
+        }
         our_packet.distance += 5;
         sleep(1);
     }

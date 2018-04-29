@@ -41,12 +41,20 @@ int main()
     FILE *vehilces[4];
 
     //open all files for vehicles, replace "cari" with host name in geni
-    vehicle[1] = fopen("car1", "rb");
-    vehicle[2] = fopen("car2", "rb");
-    vehicle[3] = fopen("car3", "rb");
-    vehicle[4] = fopen("car4", "rb");
+    vehicle[1] = fopen("vehicle-1.v2v-exp2.ch-geni-net.instageni.cenic.net", "rb");
+    vehicle[2] = fopen("vehicle-2.v2v-exp2.ch-geni-net.instageni.cenic.net", "rb");
+    vehicle[3] = fopen("vehicle-3.v2v-exp2.ch-geni-net.instageni.cenic.net", "rb");
+    vehicle[4] = fopen("vehicle-4.v2v-exp2.ch-geni-net.instageni.cenic.net", "rb");
 
     int vehicle_position[4][100];
+
+    for (i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 100; j++)
+        {
+            vehicle_position[i][j] = 0;
+        }
+    }
 
     for (i = 0; i < 4; i++)
     {
@@ -57,14 +65,18 @@ int main()
         }
     }
 
+
+
     for (i = 0; i < 100; i++)
     {
         for (j = 0; j < 4; j++)
         {
-            for (k = 0; k < 4; k++)
+            for (k = j+1; k < 4; k++)
             {
-                if (vehicle_position[j][i] == vehicle_position[k][i])
+                if ((vehicle_position[j][i] == vehicle_position[k][i]) && (vehicle_position[j][i] != 0 && vehicle_position[k][i] != 0))
+                {
                     printf("Vehicle %i collided with vehicle %i at %i seconds", j, k, i);
+                }
             }
         }
     }
