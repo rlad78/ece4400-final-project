@@ -1,0 +1,17 @@
+city-server	
+Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25403
+
+city-node	
+Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25402
+
+vehicle-1	
+Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25404
+
+vehicle-2	
+Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25405
+
+vehicle-3	
+Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25406
+
+vehicle-4	
+Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25407
