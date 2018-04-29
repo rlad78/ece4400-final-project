@@ -38,7 +38,7 @@ int main()
     struct DataPacket read_packet;
     int i, j, k;
 
-    FILE *vehilces[4];
+    FILE *vehicles[4];
 
     //open all files for vehicles, replace "cari" with host name in geni
     vehicles[0] = fopen("vehicle-1.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
