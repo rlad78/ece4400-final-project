@@ -41,10 +41,10 @@ int main()
     FILE *vehilces[4];
 
     //open all files for vehicles, replace "cari" with host name in geni
-    vehicles[1] = fopen("vehicle-1.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
-    vehicles[2] = fopen("vehicle-2.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
-    vehicles[3] = fopen("vehicle-3.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
-    vehicles[4] = fopen("vehicle-4.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
+    vehicles[0] = fopen("vehicle-1.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
+    vehicles[1] = fopen("vehicle-2.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
+    vehicles[2] = fopen("vehicle-3.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
+    vehicles[3] = fopen("vehicle-4.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
 
     int vehicle_position[4][100];
 
