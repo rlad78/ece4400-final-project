@@ -128,25 +128,25 @@ int main(int argc, char *argv[])
     int init_pos4 = 15;
     int init_lane4 = 2;
 
-    if (strcmp(currenthost,"vehicle-1") == 0) //vehicle 1
+    if (strcmp(currenthost,"vehicle-1.v2v-exp2.ch-geni-net.instageni.stanford.edu") == 0) //vehicle 1
     {
         our_packet.type = 0;
         our_packet.distance = init_pos1;
         our_packet.lane = init_lane1;
     }
-    if (strcmp(currenthost,"vehicle-2") == 0) //vehicle 2
+    if (strcmp(currenthost,"vehicle-2.v2v-exp2.ch-geni-net.instageni.stanford.edu") == 0) //vehicle 2
     {
         our_packet.type = 0;
         our_packet.distance = init_pos2;
         our_packet.lane = init_lane2;
     }
-    if (strcmp(currenthost,"vehicle-3") == 0) //vehicle 3
+    if (strcmp(currenthost,"vehicle-3.v2v-exp2.ch-geni-net.instageni.stanford.edu") == 0) //vehicle 3
     {
         our_packet.type = 0;
         our_packet.distance = init_pos3;
         our_packet.lane = init_lane3;
     }
-    if (strcmp(currenthost, "vehicle-4") == 0) //vehicle 4
+    if (strcmp(currenthost, "vehicle-4.v2v-exp2.ch-geni-net.instageni.stanford.edu") == 0) //vehicle 4
     {
         our_packet.type = 0;
         our_packet.distance = init_pos4;
@@ -167,7 +167,7 @@ int main(int argc, char *argv[])
 
         printf("Current Distance: %d\n", our_packet.distance);
 
-        if (our_packet.distance == 50 && strcmp(currenthost, "vehicle4") == 0)
+        if (our_packet.distance == 50 && strcmp(currenthost, "vehicle-4.v2v-exp2.ch-geni-net.instageni.stanford.edu") == 0)
         {
             our_packet.lane = 1;
         }

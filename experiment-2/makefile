@@ -1,4 +1,4 @@
-exp2: city_vehicle city_server
+exp2: city_vehicle city_server server_analysis
 
 city_vehicle: city_vehicle.c
 	gcc -g -Wall -o city_vehicle city_vehicle.c
