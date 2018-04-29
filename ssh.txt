@@ -1,17 +1,18 @@
-city-server	
-Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25403
+city-server
+ssh [USERNAME]@pc3.instageni.stanford.edu -p 25467
 
-city-node	
-Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25402
+city-node
+ssh [USERNAME]@pc3.instageni.stanford.edu -p 25466
 
-vehicle-1	
-Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25404
+vehicle-1
+ssh [USERNAME]@pc3.instageni.stanford.edu -p 25468
 
-vehicle-2	
-Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25405
+vehicle-2
+ssh [USERNAME]@pc3.instageni.stanford.edu -p 25469
 
-vehicle-3	
-Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25406
+vehicle-3
+ssh [USERNAME]@pc3.instageni.stanford.edu -p 25470
 
-vehicle-4	
-Login	ssh [USERNAME]@pc3.instageni.cenic.net -p 25407
+vehicle-4
+ssh [USERNAME]@pc3.instageni.stanford.edu -p 25471
+
