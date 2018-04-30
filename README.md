@@ -1,17 +1,3 @@
 # ece4400-final-project
 
-here are some great words for a change
-
-i've added some stuff that's not local!
-
-i added stuff again!
-
-i edited this offline
-
-i edited this online!
-
-one last online change
-
-hey i added a change!
-
-i added a change online
+[Info on Neteem for tc](https://wiki.linuxfoundation.org/networking/netem)
