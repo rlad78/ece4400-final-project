@@ -76,7 +76,7 @@ int main()
                 if ((vehicle_position[j][i] == vehicle_position[k][i]) && (vehicle_position[j][i] != 0 && vehicle_position[k][i] != 0))
                 {
                     printf("Vehicle %i collided with vehicle %i at %i seconds", j, k, i);
-                    exit();
+                    exit(1);
                 }
             }
         }
