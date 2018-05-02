@@ -33,7 +33,7 @@ struct DataPacket
     int status;
 };
 
-const unsigned int SLEEP_TIME = 50;
+const unsigned int SLEEP_TIME = 500;
 
 /* returns a string of n length with n-1 spaces and end-terminated
  * with a NULL char
