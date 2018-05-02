@@ -14,7 +14,7 @@ then
 	echo "initializing $eth..."
 	sudo tc qdisc delete dev $eth root
 	sudo tc qdisc add dev $eth root handle 1:0 netem delay 0ms
-	sudo tc qdisc add dev $eth parent 1:1 handle 10: tbf rate 1mbps burst 32kbps limit 1512
+	sudo tc qdisc add dev $eth parent 1:1 handle 10: tbf rate 1mbps burst 32kbit limit 1512
 fi
 
 echo "qdisc found"
