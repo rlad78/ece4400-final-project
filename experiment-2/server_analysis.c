@@ -151,7 +151,7 @@ int main()
     }
 
 
-    for (i = 0; i < 20; i++)
+    for (i = 0; i < 15; i++)
     {
         lane_print[0] = 0;
         lane_print[1] = 0;
