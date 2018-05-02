@@ -47,7 +47,6 @@ int main()
     vehicles[3] = fopen("vehicle-4.v2v-exp2.ch-geni-net.instageni.stanford.edu", "rb");
 
     int vehicle_position[4][100];
-    int vehicle_lane [4];
     int vehicle_lane[4][100];
 
     for (i = 0; i < 4; i++)
