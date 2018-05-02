@@ -176,7 +176,6 @@ int main()
         temp_pos[3] = vehicle_position[3][i];
         print_vehicle(lane_print,temp_pos);
         usleep(SLEEP_TIME);
-        0 0 1 1 2 2 3 3 
     }
 
 return 0;
