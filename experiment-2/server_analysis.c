@@ -104,7 +104,7 @@ void print_vehicle(int lane_print[4], int pos[4]){
     }
     putc('\n',stdout);
 
-    while(startpoint < endpoint){
+    while(startpoint <= endpoint){
         printf("%2d   ", startpoint);
         startpoint += 5;
     }
