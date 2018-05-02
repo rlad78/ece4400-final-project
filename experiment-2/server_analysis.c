@@ -48,6 +48,7 @@ int main()
 
     int vehicle_position[4][100];
     int vehicle_lane [4];
+    int vehicle_lane[4][100];
 
     for (i = 0; i < 4; i++)
     {
@@ -63,7 +64,7 @@ int main()
         {
             fread(&read_packet, sizeof(read_packet), 1, vehicles[i]);
             vehicle_position[i][read_packet.time] = read_packet.distance;
-            vehicle_lane[i] = read_packet.lane;
+            vehicle_lane[i][read_packet.time] = read_packet.lane;
         }
     }
 
@@ -75,7 +76,7 @@ int main()
         {
             for (k = j+1; k < 4; k++)
             {
-                if ((vehicle_position[j][i] == vehicle_position[k][i]) && (vehicle_position[j][i] != 0 && vehicle_position[k][i] != 0) && (vehicle_lane[j] == vehicle_lane[k]))
+                if ((vehicle_position[j][i] == vehicle_position[k][i]) && (vehicle_position[j][i] != 0 && vehicle_position[k][i] != 0) && (vehicle_lane[j][i] == vehicle_lane[k][i]))
                 {
                     printf("Vehicle %i collided with vehicle %i at %i seconds", j, k, i);
                     exit(1);
