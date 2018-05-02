@@ -33,7 +33,7 @@ struct DataPacket
     int status;
 };
 
-const unsigned int SLEEP_TIME = 100000;
+const unsigned int SLEEP_TIME = 300000;
 
 /* returns a string of n length with n-1 spaces and end-terminated
  * with a NULL char
@@ -151,7 +151,7 @@ int main()
     }
 
 
-    for (i = 0; i < 100; i++)
+    for (i = 0; i < 20; i++)
     {
         lane_print[0] = 0;
         lane_print[1] = 0;
