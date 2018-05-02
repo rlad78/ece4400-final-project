@@ -63,7 +63,7 @@ void print_vehicle(int lane_print[4], int pos[4]){
 
     for (i = 0; i < 4; i++)
     {
-        if (pos[i] >= endpoint)
+        if (pos[i] > endpoint)
         {
             endpoint = pos[i] + 5;
             startpoint = endpoint - 75;
