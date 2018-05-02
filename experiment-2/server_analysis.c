@@ -86,26 +86,29 @@ void print_vehicle(int lane_print[4], int pos[4]){
 
     for (i = 0; i < 16; i++)
     {
-        puts("|----");
+        fputs("|----",stdout);
     }
-    putc('\n');
+    putc('\n',stdout);
     puts(lane1);
-    putc('\n');
+    
     for (i = 0; i < 16; i++)
     {
-        puts("-----");
+        fputs("-----",stdout);
     }
-    putc('\n');
+    putc('\n',stdout);
     puts(lane2);
+
     for (i = 0; i < 16; i++)
     {
-        puts("|----");
+        fputs("|----",stdout);
     }
-    putc('\n');
+    putc('\n',stdout);
+
     while(startpoint < endpoint){
         printf("%2d   ", startpoint);
         startpoint += 5;
     }
+    putc('\n',stdout);
 
     free(lane1);
     free(lane2);
@@ -127,6 +130,7 @@ int main()
     int vehicle_position[4][100];
     int vehicle_lane[4][100];
     int lane_print[4];
+    int temp_pos[4];
 
     for (i = 0; i < 4; i++)
     {
@@ -147,10 +151,12 @@ int main()
     }
 
 
-
     for (i = 0; i < 100; i++)
     {
-        lane_print = {0,0,0,0};
+        lane_print[0] = 0;
+        lane_print[1] = 0;
+        lane_print[2] = 0;
+        lane_print[3] = 0;
         for (j = 0; j < 4; j++)
         {
             //store the vehicle number in lane print
@@ -164,8 +170,13 @@ int main()
                 }
             }
         }
-        print_vehicle(lane_print,{vehicle_position[0][i],vehicle_position[1][i],vehicle_position[2][i],vehicle_position[3][i]});
+        temp_pos[0] = vehicle_position[0][i];
+        temp_pos[1] = vehicle_position[1][i];
+        temp_pos[2] = vehicle_position[2][i];
+        temp_pos[3] = vehicle_position[3][i];
+        print_vehicle(lane_print,temp_pos);
         usleep(SLEEP_TIME);
+        0 0 1 1 2 2 3 3 
     }
 
 return 0;
