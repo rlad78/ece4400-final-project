@@ -71,14 +71,14 @@ void print_vehicle(int lane_print[4], int pos[4]){
 
         switch(lane_print[i]){
             case 1 : 
-                lane1[pos[i]] = i + '0';
-                lane1[pos[i]-1] = '[';
-                lane1[pos[i]+1] = ']';
+                lane1[pos[i]-endpoint] = i + '0';
+                lane1[pos[i]-endpoint-1] = '[';
+                lane1[pos[i]-endpoint+1] = ']';
                 break;
             case 2 :
-                lane2[pos[i]] = i + '0';
-                lane2[pos[i]-1] = '[';
-                lane2[pos[i]+1] = ']';
+                lane2[pos[i]-endpoint] = i + '0';
+                lane2[pos[i]-endpoint-1] = '[';
+                lane2[pos[i]-endpoint+1] = ']';
                 break;
         }
 
