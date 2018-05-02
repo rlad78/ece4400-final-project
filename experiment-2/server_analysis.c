@@ -56,8 +56,8 @@ void print_vehicle(int lane_print[4], int pos[4]){
     int i, startpoint = 0, endpoint = 75;
     char *lane1;
     char *lane2;
-    lane1 = blankStr(81);
-    lane2 = blankStr(81);
+    lane1 = blankStr(83);
+    lane2 = blankStr(83);
 
     system("clear");
 
