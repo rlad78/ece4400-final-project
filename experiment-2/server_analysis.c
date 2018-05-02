@@ -110,8 +110,8 @@ void print_vehicle(int lane_print[4], int pos[4]){
     }
     putc('\n',stdout);
 
-    free(lane1);
-    free(lane2);
+    // free(lane1);
+    // free(lane2);
 }
 
 int main()
